@@ -1,0 +1,280 @@
+<main class="shell">
+  <div class="topbar">
+    <div class="topbar-brand" aria-label="ConverterApp">
+      <img
+        class="topbar-brand-logo"
+        src="logo.png"
+        alt=""
+        width="40"
+        height="40"
+      />
+      <span class="topbar-brand-name">{{ copy.brandName }}</span>
+    </div>
+
+    <div class="topbar-controls">
+      <div class="language-switcher" role="group" [attr.aria-label]="languageSwitcherLabel">
+        @for (languageOption of languageOptions; track languageOption) {
+          <button
+            class="language-option"
+            type="button"
+            [class.is-active]="language === languageOption"
+            [attr.aria-pressed]="language === languageOption"
+            [attr.aria-label]="getLanguageButtonTitle(languageOption)"
+            [attr.title]="getLanguageButtonTitle(languageOption)"
+            (click)="setLanguage(languageOption)">
+            {{ languageOption.toUpperCase() }}
+          </button>
+        }
+      </div>
+
+      <button
+        class="theme-toggle"
+        type="button"
+        [attr.aria-label]="themeButtonLabel"
+        [attr.title]="themeButtonLabel"
+        (click)="toggleTheme()">
+        <span class="theme-toggle-icon" aria-hidden="true">
+          @if (isDarkTheme) {
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path
+                d="M19.5 14.6A8.5 8.5 0 0 1 9.4 4.5a.75.75 0 0 0-.98-.91A9.5 9.5 0 1 0 20.4 15.58a.75.75 0 0 0-.9-.98Z"
+                fill="currentColor" />
+            </svg>
+          } @else {
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path
+                d="M12 4.25a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V5a.75.75 0 0 1 .75-.75Zm0 12a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Zm7-5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1 0-1.5H19ZM7.25 12a.75.75 0 0 1-.75.75H5a.75.75 0 0 1 0-1.5h1.5a.75.75 0 0 1 .75.75Zm8.96-5.71a.75.75 0 0 1 1.06 0l1.06 1.06a.75.75 0 1 1-1.06 1.06l-1.06-1.06a.75.75 0 0 1 0-1.06Zm-10.54 0a.75.75 0 0 1 1.06 1.06L5.67 8.4A.75.75 0 1 1 4.61 7.35l1.06-1.06Zm11.6 10.54a.75.75 0 0 1 1.06 1.06l-1.06 1.06a.75.75 0 0 1-1.06-1.06l1.06-1.06Zm-10.54 0 1.06 1.06a.75.75 0 1 1-1.06 1.06l-1.06-1.06a.75.75 0 1 1 1.06-1.06ZM12 17.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 17.5Z"
+                fill="currentColor" />
+            </svg>
+          }
+        </span>
+      </button>
+    </div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="brand-kicker">{{ copy.brandName }}</p>
+      <h1 class="hero-title">{{ copy.hero.title }}</h1>
+      <p class="hero-text">{{ copy.hero.text }}</p>
+
+      <div class="hero-badges" [attr.aria-label]="copy.supportedFormats.kicker">
+        @for (badge of copy.hero.badges; track badge) {
+          <span>{{ badge }}</span>
+        }
+      </div>
+
+      <div class="hero-notes">
+        @for (note of heroNotes; track note.label) {
+          <article>
+            <span class="note-label">{{ note.label }}</span>
+            <p>{{ note.text }}</p>
+          </article>
+        }
+      </div>
+    </div>
+
+    <article class="studio-card">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">{{ copy.studio.kicker }}</p>
+          <h2>{{ copy.studio.title }}</h2>
+        </div>
+        <span class="status-pill">{{ copy.studio.pipeline }}</span>
+      </div>
+
+      <form class="converter-form" (submit)="onSubmit($event)">
+        <label class="field">
+          <span class="label">{{ copy.studio.sourceFile }}</span>
+          <input
+            #sourceFileInput
+            class="visually-hidden"
+            type="file"
+            [accept]="acceptedExtensions"
+            (change)="onFileSelected($event)"
+          />
+
+          <button class="file-trigger" type="button" (click)="sourceFileInput.click()">
+            <span class="file-trigger-copy">
+              <strong>{{ selectedFileName }}</strong>
+              <small>{{ copy.studio.supportedList }}</small>
+            </span>
+            <span class="file-trigger-cta">{{ copy.studio.chooseFile }}</span>
+          </button>
+        </label>
+
+        <div class="field-grid">
+          <label class="field compact-field">
+            <span class="label">{{ copy.studio.outputFormat }}</span>
+            <div class="select-shell">
+              <select [value]="targetFormat" (change)="onTargetFormatChange($event)">
+                @for (format of targetFormats; track format) {
+                  <option [value]="format">{{ format.toUpperCase() }}</option>
+                }
+              </select>
+            </div>
+          </label>
+
+          <div class="field compact-field field-summary">
+            <span class="label">{{ copy.studio.delivery }}</span>
+            <p>{{ copy.studio.deliveryText }}</p>
+          </div>
+        </div>
+
+        <button class="primary-button" type="submit" [disabled]="!canSubmit">
+          {{ submitButtonText }}
+        </button>
+      </form>
+
+      @if (shouldShowProgress) {
+        <section class="status-card progress-card">
+          <div class="status-head">
+            <div>
+              <span class="status-label">{{ copy.status.inProgress }}</span>
+              <strong>{{ progressTitle }}</strong>
+            </div>
+            <span class="status-value">{{ progressValue }}%</span>
+          </div>
+          <div class="progress-bar">
+            <span [style.width.%]="progressValue"></span>
+          </div>
+        </section>
+      }
+
+      @if (shouldShowFailure) {
+        <section class="status-card failure-card">
+          <span class="status-label">{{ copy.status.issueDetected }}</span>
+          <strong>{{ copy.status.conversionFailed }}</strong>
+          <p>{{ failureMessage }}</p>
+        </section>
+      }
+
+      @if (shouldShowSuccess && currentJob) {
+        <section class="status-card success-card">
+          <div class="status-head">
+            <div>
+              <span class="status-label">{{ copy.status.ready }}</span>
+              <strong>{{ currentJob.message }}</strong>
+            </div>
+            <span class="status-value">PDF</span>
+          </div>
+
+          <div class="result-meta">
+            <div>
+              <span class="meta-caption">{{ copy.status.outputFile }}</span>
+              <strong>{{ preferredOutputFileName }}</strong>
+            </div>
+            @if (savedOutputLocation) {
+              <div>
+                <span class="meta-caption">{{ copy.status.savedLocation }}</span>
+                <code>{{ savedOutputLocation }}</code>
+              </div>
+            }
+          </div>
+
+          @if (localSaveMessage) {
+            <p class="status-copy">{{ localSaveMessage }}</p>
+          }
+
+          @if (localSaveErrorMessage) {
+            <p class="field-error">{{ localSaveErrorMessage }}</p>
+          }
+
+          <div class="result-actions">
+            <button
+              class="secondary-link"
+              type="button"
+              [disabled]="isDownloading"
+              (click)="onDownloadFile()">
+              {{ downloadButtonText }}
+            </button>
+            <button
+              class="ghost-button"
+              type="button"
+              [disabled]="isPickingOutputDirectory || isSavingOutput"
+              (click)="onSaveToSelectedFolder()">
+              {{ saveToFolderButtonText }}
+            </button>
+          </div>
+
+          <p class="status-footnote">
+            {{ copy.status.downloadsFootnote }}
+          </p>
+        </section>
+      }
+    </article>
+  </section>
+
+  <section class="detail-grid">
+    <article class="detail-card">
+      <button
+        class="detail-toggle"
+        type="button"
+        aria-controls="supported-formats-panel"
+        [attr.aria-expanded]="isFormatsExpanded"
+        (click)="toggleFormatsPanel()">
+        <div class="detail-toggle-copy">
+          <p class="section-kicker">{{ copy.supportedFormats.kicker }}</p>
+          <h2>{{ copy.supportedFormats.title }}</h2>
+        </div>
+        <span class="detail-toggle-indicator" [class.is-expanded]="isFormatsExpanded" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <path
+              d="M6.7 9.3a1 1 0 0 1 1.4 0L12 13.17l3.9-3.88a1 1 0 1 1 1.4 1.42l-4.6 4.57a1 1 0 0 1-1.4 0l-4.6-4.57a1 1 0 0 1 0-1.42Z"
+              fill="currentColor" />
+          </svg>
+        </span>
+      </button>
+
+      @if (isFormatsExpanded) {
+        <div class="detail-panel" id="supported-formats-panel">
+          <div class="track-list">
+            @for (track of tracks; track track.family) {
+              <section class="track-card">
+                <header>
+                  <h3>{{ track.family }}</h3>
+                </header>
+                <p>{{ track.note }}</p>
+                <div class="chips">
+                  @for (source of track.sources; track source) {
+                    <span>{{ source }}</span>
+                  }
+                </div>
+              </section>
+            }
+          </div>
+        </div>
+      }
+    </article>
+
+    <article class="detail-card workflow-card">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">{{ copy.workflow.kicker }}</p>
+          <h2>{{ copy.workflow.title }}</h2>
+        </div>
+      </div>
+
+      <div class="workflow-list" [attr.aria-label]="copy.workflow.kicker">
+        @for (step of workflowSteps; track step.id) {
+          <section class="workflow-step" [class.is-active]="activeWorkflowStepId === step.id">
+            <button
+              class="workflow-step-trigger"
+              type="button"
+              [class.is-active]="activeWorkflowStepId === step.id"
+              [attr.aria-pressed]="activeWorkflowStepId === step.id"
+              (click)="selectWorkflowStep(step.id)">
+              {{ step.number }}
+            </button>
+            <div class="workflow-step-copy">
+              <strong>{{ step.title }}</strong>
+              @if (activeWorkflowStepId === step.id) {
+                <p>{{ step.description }}</p>
+              }
+            </div>
+          </section>
+        }
+      </div>
+    </article>
+  </section>
+</main>

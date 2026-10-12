@@ -1,0 +1,103 @@
+{
+  "name": "converter-ui",
+  "version": "0.1.0",
+  "description": "Local-first office-to-PDF desktop converter powered by ASP.NET Core, Angular, Electron, and LibreOffice.",
+  "author": "ConverterApp Contributors",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve --proxy-config proxy.conf.json",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "test": "ng test",
+    "desktop:clean": "node electron/scripts/clean-desktop-artifacts.mjs",
+    "desktop:prepare": "npm run build && node electron/scripts/sync-frontend.mjs",
+    "desktop:dev": "node electron/scripts/run-desktop-dev.mjs",
+    "desktop:bundle-libreoffice": "node electron/scripts/bundle-libreoffice.mjs",
+    "desktop:publish-backend": "node electron/scripts/publish-backend.mjs",
+    "desktop:dist": "npm run desktop:clean && npm run desktop:prepare && npm run desktop:bundle-libreoffice && npm run desktop:publish-backend && node ./node_modules/electron-builder/cli.js"
+  },
+  "private": true,
+  "packageManager": "npm@11.6.2",
+  "dependencies": {
+    "@angular/common": "^21.2.0",
+    "@angular/compiler": "^21.2.0",
+    "@angular/core": "^21.2.0",
+    "@angular/forms": "^21.2.0",
+    "@angular/platform-browser": "^21.2.0",
+    "@angular/router": "^21.2.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^21.2.5",
+    "@angular/cli": "^21.2.5",
+    "@angular/compiler-cli": "^21.2.0",
+    "electron": "^37.4.0",
+    "electron-builder": "^26.0.12",
+    "jsdom": "^28.0.0",
+    "prettier": "^3.8.1",
+    "typescript": "~5.9.2",
+    "vitest": "^4.0.8"
+  },
+  "build": {
+    "appId": "com.converterapp.desktop",
+    "productName": "ConverterApp",
+    "directories": {
+      "output": "dist-desktop",
+      "buildResources": "electron/assets"
+    },
+    "icon": "electron/assets/icon.png",
+    "files": [
+      "electron/**/*",
+      "!electron/backend-publish{,/**}",
+      "!electron/libreoffice-bundle{,/**}",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "electron/libreoffice-bundle",
+        "to": "libreoffice",
+        "filter": [
+          "**/*"
+        ]
+      },
+      {
+        "from": "electron/backend-publish",
+        "to": "backend",
+        "filter": [
+          "**/*"
+        ]
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.productivity",
+      "icon": "electron/assets/icon.png",
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "icon": "electron/assets/icon.ico",
+      "signAndEditExecutable": false,
+      "target": [
+        "nsis"
+      ]
+    },
+    "nsis": {
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "deleteAppDataOnUninstall": true,
+      "shortcutName": "ConverterApp",
+      "installerIcon": "electron/assets/icon.ico",
+      "uninstallerIcon": "electron/assets/icon.ico",
+      "installerHeaderIcon": "electron/assets/icon.ico"
+    },
+    "linux": {
+      "icon": "electron/assets/icon.png",
+      "target": [
+        "AppImage"
+      ]
+    }
+  }
+}

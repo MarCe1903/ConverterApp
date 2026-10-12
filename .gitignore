@@ -1,0 +1,32 @@
+backend/**/bin/
+backend/**/obj/
+frontend/**/node_modules/
+frontend/**/.angular/
+frontend/**/dist/
+frontend/**/dist-desktop/
+frontend/**/coverage/
+frontend/**/electron/backend-publish/
+frontend/**/electron/libreoffice-bundle/
+backend/**/temp/
+backend/ConverterApi/wwwroot/
+backend/ConverterApi/appsettings.Local.json
+backend/ConverterApi/appsettings.*.Local.json
+
+# Local conversion profiles, logs, and machine-specific data
+backend/**/.converter-profile*/
+.converter-profile*/
+*.log
+.DS_Store
+Thumbs.db
+
+# Local secrets and editor settings
+.env
+.env.*
+!.env.example
+!.env.*.example
+.vs/
+*.user
+*.suo
+
+# Published server artifacts
+/artifacts/

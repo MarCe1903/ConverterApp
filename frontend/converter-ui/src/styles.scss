@@ -1,0 +1,165 @@
+:root {
+  --bg-main: #f4eee4;
+  --bg-accent: #efe4d4;
+  --surface: #fffaf3;
+  --surface-card: rgba(255, 251, 245, 0.86);
+  --surface-panel: rgba(255, 255, 255, 0.78);
+  --surface-track: rgba(255, 255, 255, 0.65);
+  --surface-code: rgba(28, 36, 48, 0.08);
+  --ink-strong: #1c2430;
+  --ink-soft: #5f6672;
+  --accent-burnt: #dc7a3a;
+  --accent-teal: #217a83;
+  --ambient-burnt: rgba(220, 122, 58, 0.16);
+  --ambient-teal: rgba(33, 122, 131, 0.14);
+  --border-soft: rgba(30, 41, 58, 0.08);
+  --border-muted: rgba(25, 36, 55, 0.08);
+  --border-strong: rgba(25, 36, 55, 0.12);
+  --shadow-card: rgba(37, 38, 45, 0.09);
+  --shadow-soft: rgba(34, 44, 60, 0.06);
+  --shadow-pop: rgba(27, 32, 44, 0.08);
+  --hero-badge-surface: rgba(255, 255, 255, 0.68);
+  --hero-badge-border: rgba(28, 36, 48, 0.1);
+  --status-pill-surface: rgba(33, 122, 131, 0.1);
+  --status-pill-border: rgba(33, 122, 131, 0.18);
+  --control-surface: linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(246, 239, 229, 0.88));
+  --control-border: rgba(30, 41, 58, 0.08);
+  --control-hover-border: rgba(220, 122, 58, 0.3);
+  --control-shadow-hover: rgba(27, 32, 44, 0.08);
+  --primary-button-start: #d96a2c;
+  --primary-button-end: #ee8b44;
+  --primary-button-ink: #fffaf3;
+  --primary-button-shadow: rgba(217, 106, 44, 0.24);
+  --progress-surface: linear-gradient(135deg, rgba(34, 122, 138, 0.1), rgba(255, 255, 255, 0.72));
+  --progress-border: rgba(38, 117, 132, 0.16);
+  --progress-track: rgba(19, 34, 52, 0.08);
+  --progress-fill-start: #1f7f8a;
+  --progress-fill-end: #46b0ac;
+  --failure-surface: linear-gradient(135deg, rgba(188, 76, 79, 0.08), rgba(255, 255, 255, 0.78));
+  --failure-border: rgba(188, 76, 79, 0.18);
+  --success-surface: linear-gradient(135deg, rgba(63, 126, 91, 0.08), rgba(255, 255, 255, 0.82));
+  --success-border: rgba(63, 126, 91, 0.18);
+  --button-primary-surface: #1c2430;
+  --button-primary-border: rgba(25, 36, 55, 0.1);
+  --button-primary-ink: #fff9f0;
+  --button-secondary-surface: rgba(255, 255, 255, 0.72);
+  --button-secondary-border: rgba(25, 36, 55, 0.12);
+  --button-secondary-ink: #1c2430;
+  --track-target-surface: rgba(220, 122, 58, 0.12);
+  --track-chip-surface: rgba(33, 122, 131, 0.08);
+  --track-chip-border: rgba(25, 36, 55, 0.08);
+  --workflow-surface: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(245, 238, 228, 0.88)),
+    var(--surface);
+  --workflow-divider: rgba(25, 36, 55, 0.08);
+  --workflow-step-surface: #1c2430;
+  --workflow-step-ink: #fff8ef;
+  --field-error: #b14d56;
+  --theme-toggle-surface: rgba(255, 250, 243, 0.88);
+  --theme-toggle-sheen-start: rgba(255, 255, 255, 0.94);
+  --theme-toggle-sheen-end: rgba(244, 235, 221, 0.86);
+  --theme-toggle-ink: #d96a2c;
+  --theme-toggle-border: rgba(28, 36, 48, 0.08);
+  --theme-toggle-border-hover: rgba(220, 122, 58, 0.34);
+  --theme-toggle-shadow: rgba(37, 38, 45, 0.08);
+  --theme-toggle-shadow-hover: rgba(37, 38, 45, 0.12);
+  --font-body: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Avenir Next", Avenir, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+}
+
+html {
+  color-scheme: light;
+  background:
+    radial-gradient(circle at top left, rgba(220, 122, 58, 0.08), transparent 28%),
+    radial-gradient(circle at top right, rgba(33, 122, 131, 0.08), transparent 30%),
+    linear-gradient(180deg, var(--bg-main) 0%, var(--bg-accent) 100%);
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg-main: #151a24;
+  --bg-accent: #0f141d;
+  --surface: #1a2230;
+  --surface-card: rgba(24, 32, 44, 0.88);
+  --surface-panel: rgba(20, 28, 40, 0.92);
+  --surface-track: rgba(23, 31, 44, 0.82);
+  --surface-code: rgba(8, 13, 21, 0.72);
+  --ink-strong: #f6efe2;
+  --ink-soft: #c3cedc;
+  --accent-burnt: #ffb06a;
+  --accent-teal: #73c1c4;
+  --ambient-burnt: rgba(255, 176, 106, 0.14);
+  --ambient-teal: rgba(115, 193, 196, 0.12);
+  --border-soft: rgba(168, 182, 200, 0.16);
+  --border-muted: rgba(168, 182, 200, 0.14);
+  --border-strong: rgba(168, 182, 200, 0.2);
+  --shadow-card: rgba(0, 0, 0, 0.34);
+  --shadow-soft: rgba(0, 0, 0, 0.18);
+  --shadow-pop: rgba(0, 0, 0, 0.32);
+  --hero-badge-surface: rgba(27, 37, 52, 0.86);
+  --hero-badge-border: rgba(195, 206, 220, 0.18);
+  --status-pill-surface: rgba(115, 193, 196, 0.14);
+  --status-pill-border: rgba(115, 193, 196, 0.26);
+  --control-surface: linear-gradient(135deg, rgba(38, 49, 66, 0.96), rgba(19, 26, 38, 0.98));
+  --control-border: rgba(168, 182, 200, 0.16);
+  --control-hover-border: rgba(255, 176, 106, 0.42);
+  --control-shadow-hover: rgba(0, 0, 0, 0.32);
+  --primary-button-start: #ffb06a;
+  --primary-button-end: #df7d3d;
+  --primary-button-ink: #161d28;
+  --primary-button-shadow: rgba(0, 0, 0, 0.3);
+  --progress-surface: linear-gradient(135deg, rgba(27, 94, 106, 0.42), rgba(21, 28, 39, 0.98));
+  --progress-border: rgba(115, 193, 196, 0.24);
+  --progress-track: rgba(195, 206, 220, 0.14);
+  --progress-fill-start: #73c1c4;
+  --progress-fill-end: #b9e5e7;
+  --failure-surface: linear-gradient(135deg, rgba(146, 60, 69, 0.42), rgba(21, 28, 39, 0.98));
+  --failure-border: rgba(230, 141, 149, 0.28);
+  --success-surface: linear-gradient(135deg, rgba(49, 96, 75, 0.42), rgba(21, 28, 39, 0.98));
+  --success-border: rgba(126, 191, 154, 0.24);
+  --button-primary-surface: rgba(246, 239, 226, 0.96);
+  --button-primary-border: rgba(246, 239, 226, 0.18);
+  --button-primary-ink: #141b25;
+  --button-secondary-surface: rgba(28, 37, 50, 0.9);
+  --button-secondary-border: rgba(168, 182, 200, 0.18);
+  --button-secondary-ink: #f6efe2;
+  --track-target-surface: rgba(255, 176, 106, 0.16);
+  --track-chip-surface: rgba(115, 193, 196, 0.13);
+  --track-chip-border: rgba(115, 193, 196, 0.16);
+  --workflow-surface: linear-gradient(180deg, rgba(28, 37, 51, 0.98), rgba(17, 24, 35, 0.98)),
+    var(--surface);
+  --workflow-divider: rgba(168, 182, 200, 0.14);
+  --workflow-step-surface: rgba(246, 239, 226, 0.94);
+  --workflow-step-ink: #141b25;
+  --field-error: #ff9ca1;
+  --theme-toggle-surface: rgba(20, 26, 36, 0.9);
+  --theme-toggle-sheen-start: rgba(42, 55, 72, 0.72);
+  --theme-toggle-sheen-end: rgba(17, 22, 31, 0.94);
+  --theme-toggle-ink: #f4eadc;
+  --theme-toggle-border: rgba(244, 234, 220, 0.1);
+  --theme-toggle-border-hover: rgba(115, 193, 196, 0.38);
+  --theme-toggle-shadow: rgba(0, 0, 0, 0.24);
+  --theme-toggle-shadow-hover: rgba(0, 0, 0, 0.34);
+  background:
+    radial-gradient(circle at top left, rgba(255, 176, 106, 0.09), transparent 26%),
+    radial-gradient(circle at top right, rgba(115, 193, 196, 0.08), transparent 28%),
+    linear-gradient(180deg, var(--bg-main) 0%, var(--bg-accent) 100%);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: transparent;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
